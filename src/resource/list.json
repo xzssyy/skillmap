@@ -1,0 +1,181 @@
+{
+  "type": "资源",
+  "resource-type": "原子形",
+  "nums": 1,
+  "item": [
+    {
+      "id": 1,
+      "name": "控制器背面接口",
+      "format": "img",
+      "file": "控制器接口.jpg"
+    },
+    {
+      "id": 2,
+      "name": "KUKA机器人组件",
+      "format": "img",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Kuka机器人运行环境",
+      "format": "img",
+      "file": "A2.jpg"
+    },
+    {
+      "id": 4,
+      "name": "KUKA机器人A1轴",
+      "format": "img",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 5,
+      "name": "KUKA机器人A2-A3轴",
+      "format": "img",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 6,
+      "name": "KUKA机器人A4-A5轴",
+      "format": "img",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 7,
+      "name": "KUKA机器人A6轴",
+      "format": "img",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 8,
+      "name": "KUKA机器人A1轴",
+      "format": "img",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 9,
+      "name": "KUKA机器人产品参数",
+      "format": "table",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 10,
+      "name": "KUKA机器人控制系统",
+      "format": "img",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 11,
+      "name": "KUKA机器人示教器-正面",
+      "format": "img",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 12,
+      "name": "KUKA机器人示教器-背面",
+      "format": "img",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 13,
+      "name": "KUKA机器人控制器接口介绍",
+      "format": "text",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 14,
+      "name": "kuka机器人产品介绍",
+      "format": "text",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 15,
+      "name": "KUKA机器人组件功能",
+      "format": "text",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 16,
+      "name": "KUKA机器人工作环境组建介绍",
+      "format": "text",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 17,
+      "name": "KUKA机器人示教器接口介绍",
+      "format": "text",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 18,
+      "name": "KUKA机器人轴介绍",
+      "format": "text",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 19,
+      "name": "KUKA机器人控制器接口介绍",
+      "format": "text",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 20,
+      "name": "KUKA机器人构件视频",
+      "format": "video",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 21,
+      "name": "KUKA机器人编程介绍视频",
+      "format": "video",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 22,
+      "name": "KUKA机器人运行演示",
+      "format": "text",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 23,
+      "name": "KUKA机器人控制器说明书",
+      "format": "pdf",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 24,
+      "name": "KUKA机器人产品说明书",
+      "format": "pdf",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 25,
+      "name": "KUKA机器人示教器说明书",
+      "format": "pdf",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 26,
+      "name": "KUKA机器人产品登记文档",
+      "format": "pdf",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 27,
+      "name": "直线线运动指令",
+      "format": "text",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 28,
+      "name": "圆弧运动指令",
+      "format": "text",
+      "file": "A1.jpg"
+    },
+    {
+      "id": 29,
+      "name": "KUKA机器人控制器接口介绍",
+      "format": "text",
+      "file": "A1.jpg"
+    }
+  ]
+}

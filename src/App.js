@@ -1,25 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import MapCanvas from "./components/MapCanvas/mapcanvas";
+import ToolMenu from "./components/ToolMenu/toolmenu";
+import React from "react";
 
-function App() {
+
+export default function App(useRef) {
+
+  const styles = {
+    display: "flex",
+    height: "100%"
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <>
+        <h1 style={{"text-align":"center"}}>技能地图</h1>
+        <div className="container" style={styles}>
+          <MapCanvas></MapCanvas>
+          <ToolMenu></ToolMenu>
+        </div>
+
+      </>
   );
 }
 
-export default App;
+
