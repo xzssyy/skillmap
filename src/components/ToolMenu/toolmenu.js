@@ -1,46 +1,53 @@
-
+import data from "../../data/resource.json"
 import ResourceList from "./ResourceList/resourcelist";
-import React from "react";
+import React, {useState} from "react";
+import FileList from "./FIleList/filelist";
 
-export default function ToolMenu(){
+export default function ToolMenu() {
 
-    const styles = {
-       flex:"1",
-        textAlign:"center",
-        margin: "1px"
+    const [selectedItem, setSelectedItem] = useState(null);
+
+
+
+    /* resource data
+        store in public
+     */
+    const [resouceData, setResourceData] = useState(new Array(10).fill(null))
+
+    const handleItemClick = (node) => {
+        setSelectedItem(node);
+        // console.log(node);
     }
 
-    const treeData = [
-        {
-            id: 1,
-            name: 'Node 1',
-            children: [
-                {
-                    id: 2,
-                    name: 'Node 1.1',
-                    children: [
-                        { id: 3, name: 'Node 1.1.1' },
-                        { id: 4, name: 'Node 1.1.2' }
-                    ]
-                },
-                { id: 5, name: 'Node 1.2' }
-            ]
-        },
-        {
-            id: 6,
-            name: 'Node 2',
-            children: [
-                { id: 7, name: 'Node 2.1' },
-                { id: 8, name: 'Node 2.2' }
-            ]
-        }
-    ];
+    const styles = {
+        flex: "1",
+        marginLeft: 10,
+        height: 800,
+        border: "solid"
+    }
+
+
+    const wrapperStyles = {
+        position:"relative",
+        height: "80%",
+        width:"100%",
+        padding:20
+    }
+
+
+
+    const treeData = data.nodes;
+    // const resource = da
 
 
     return (
-        <div className= "Menu" style={styles}>
-            <h1>资源库</h1>
-            <ResourceList data={treeData}></ResourceList>
+        <div className="Menu" style={styles}>
+            <h1 style={{"boder": "solid", "text-align": "center"}}>资源库</h1>
+            <div style={wrapperStyles}>
+                <ResourceList data={treeData} itemClick={handleItemClick} selectedItem={selectedItem}></ResourceList>
+                <FileList></FileList>
+            </div>
+
         </div>
     )
 

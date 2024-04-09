@@ -4,7 +4,6 @@ import mapData from "../../data/SkillHD.json"
 
 export function createMap(svgRef) {
 
-
     const width = 1200;
     const height = 800;
     const svg = d3
@@ -14,9 +13,7 @@ export function createMap(svgRef) {
         .attr("viewBox", [0, 0, width, height])
         .attr("style", "border:solid black");
 
-
     const data = mapData;
-
 
     ForceGraph(data, {
         nodeId: d => d.id,

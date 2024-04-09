@@ -1,5 +1,4 @@
 import * as d3 from "d3"
-import {type} from "@testing-library/user-event/dist/type";
 
 
 export function createCanvas(svgRef) {
