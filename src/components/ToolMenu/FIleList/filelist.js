@@ -1,19 +1,46 @@
-export default function FileList({data}){
+import {useState} from "react";
+import FileViewer from "./FileViewer/fileviewer";
+
+
+export default function FileList({data}) {
+
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+    const [filename, setFilename] = useState(null);
+
+    const [type, setType] = useState(null)
+    const openModal = (item) =>{
+        setIsModalOpen(true);
+        setFilename(item.filename)
+        setType(item.type)
+    }
+
+    const closeModal = () =>{
+        setIsModalOpen(false)
+    }
 
     const styles = {
-        position:"absolute",
-        right:100,
-        border:"solid",
-        height:"80%",
-        width:"40%",
-        padding:20
+        position: "absolute",
+        right: 100,
+        border: "solid",
+        height: "80%",
+        width: "40%",
+        padding: 20
     }
 
 
     return <div style={styles}>
-        <video controls>
-            <source src="/准备机器人工作站/video.mp4" type="video/mp4"/>
-            Your browser does not support the video tag.
-        </video>
+        <ul>
+            { data && data.map((item, index) => (
+                <li key={index}>
+                    {item.filename}
+                <button style={{margin :10}} > 加入地图 </button>
+                    <button onClick={()=>openModal(item)}> 查看内容</button>
+                </li>
+            ))}
+        </ul>
+        <FileViewer isOpen={isModalOpen} onClose={closeModal} filename={filename} type={type}></FileViewer>
     </div>
 }

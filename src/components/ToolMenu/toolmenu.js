@@ -12,11 +12,17 @@ export default function ToolMenu() {
     /* resource data
         store in public
      */
-    const [resouceData, setResourceData] = useState(new Array(10).fill(null))
+    const [resouceData, setResourceData] = useState(null)
 
     const handleItemClick = (node) => {
         setSelectedItem(node);
-        // console.log(node);
+
+
+        const id = node.id;
+
+        const rList = data.resources[id.toString()]
+        setResourceData(rList)
+
     }
 
     const styles = {
@@ -45,7 +51,7 @@ export default function ToolMenu() {
             <h1 style={{"boder": "solid", "text-align": "center"}}>资源库</h1>
             <div style={wrapperStyles}>
                 <ResourceList data={treeData} itemClick={handleItemClick} selectedItem={selectedItem}></ResourceList>
-                <FileList></FileList>
+                <FileList data={resouceData}></FileList>
             </div>
 
         </div>
