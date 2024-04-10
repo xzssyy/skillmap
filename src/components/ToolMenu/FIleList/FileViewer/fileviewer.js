@@ -37,6 +37,7 @@ export default function FileViewer({isOpen, onClose, filename, type}) {
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h1>学习资源查看</h1>
+                <h2>{filename}</h2>
                 {viewBox}
             </div>
         </div>

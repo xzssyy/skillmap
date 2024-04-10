@@ -69,6 +69,10 @@
           ]
         }
       ]
+    },
+    {
+      "id": 999,
+      "name": "使用参考(务必点击观看！)"
     }
   ],
   "resources": {
@@ -85,6 +89,6 @@
     "11": [{"filename":"video.mp4","type": "video"}],
     "12": [{"filename":"video.mp4","type": "video"}],
     "13": [{"filename":"video.mp4","type": "video"}],
-    "14": [{"filename":"video.mp4","type": "video"}]}
-
+    "14": [{"filename":"video.mp4","type": "video"}],
+  "999": [{"filename":"video.mp4","type": "video"}]}
 }

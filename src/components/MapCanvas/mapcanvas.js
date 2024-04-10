@@ -1,23 +1,39 @@
 'use client'
 
-import React, {useEffect, useRef} from "react"
-import {createMap} from "./createMap"
+import React, {useEffect, useRef, useState} from "react"
+import NodeCreator from "./SchemaNodeCreator/creator";
+import Graph from "./Graph/graph";
 
 
-export default function MapCanvas({data}){
+export default function MapCanvas(props){
+
+    console.log(props.data)
+
+
+    const data = props.data;
+    // data for control list
+    const [selectedNodeList, setSelctedNodeList] = useState(["未选中","未选中"]);
+
 
     const styles= {
         flex:"1"
     }
-    const svgRef = useRef(null);
-    useEffect(() => {
-        createMap(svgRef.current);
-    })
+
+    const updateSelectedNode = (nodeList)=>{
+        setSelctedNodeList(nodeList)
+    }
+
+
 
     return (
         <div className={"svgBox"} style={styles}>
-        <svg ref={svgRef} style={{background: "white", border:"solid black"}}/>
+            <Graph data={data} updateSelectedNode={updateSelectedNode}></Graph>
+            <NodeCreator selectedNode={selectedNodeList}></NodeCreator>
         </div>
     )
 }
 
+
+const controller = ()=>{
+
+}

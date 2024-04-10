@@ -1,11 +1,14 @@
 import * as d3 from "d3";
-import mapData from "../../data/SkillHD.json"
+import {selectNode} from "../utilis";
 
 
-export function createMap(svgRef) {
 
+export function createMap(svgRef, mapData, updateSelectedNode) {
+
+
+    console.log(mapData);
     const width = 1200;
-    const height = 800;
+    const height = 600;
     const svg = d3
         .select(svgRef)
         .attr("width", width)
@@ -15,34 +18,30 @@ export function createMap(svgRef) {
 
     const data = mapData;
 
+
+
     ForceGraph(data, {
-        nodeId: d => d.id,
-        nodeGroup: d => d.group,
-        nodeTitle: d => d.name,
-        linkStrokeWidth: l => Math.sqrt(l.value),
+        nodeId: d => d.id, nodeGroup: d => d.group, nodeTitle: d => d.name, linkStrokeWidth: l => Math.sqrt(l.value),
     })
 
-    function ForceGraph({nodes, links},
-                        {
-                            nodeId = d => d.id, // given d in nodes, returns a unique identifier (string)
-                            nodeGroup, // given d in nodes, returns an (ordinal) value for color
-                            nodeGroups, // an array of ordinal values representing the node groups
-                            nodeTitle, // given d in nodes, a title string
-                            nodeFill = "currentColor", // node stroke fill (if not using a group color encoding)
-                            nodeStroke = "#fff", // node stroke color
-                            nodeStrokeWidth = 1.5, // node stroke width, in pixels
-                            nodeStrokeOpacity = 1, // node stroke opacity
-                            nodeRadius = 20, // node radius, in pixels
-                            nodeStrength,
-                            linkSource = ({source}) => source, // given d in links, returns a node identifier string
-                            linkTarget = ({target}) => target, // given d in links, returns a node identifier string
-                            linkStroke = "#999", // link stroke color
-                            linkStrokeOpacity = 0.6, // link stroke opacity
-                            linkStrokeWidth = 1.5, // given d in links, returns a stroke width in pixels
-                            linkStrokeLinecap = "round", // link stroke linecap
-                            linkStrength,
-                            colors = d3.schemeRdGy[6], // an array of color strings, for the node groups
-                        } = {}) {
+    function ForceGraph({nodes, links}, {
+        nodeId = d => d.id, // given d in nodes, returns a unique identifier (string)
+        nodeGroup, // given d in nodes, returns an (ordinal) value for color
+        nodeGroups, // an array of ordinal values representing the node groups
+        nodeTitle, // given d in nodes, a title string
+        nodeFill = "currentColor", // node stroke fill (if not using a group color encoding)
+        nodeStroke = "#fff", // node stroke color
+        nodeStrokeWidth = 1.5, // node stroke width, in pixels
+        nodeStrokeOpacity = 1, // node stroke opacity
+        nodeRadius = 20, // node radius, in pixels
+        nodeStrength, linkSource = ({source}) => source, // given d in links, returns a node identifier string
+        linkTarget = ({target}) => target, // given d in links, returns a node identifier string
+        linkStroke = "#999", // link stroke color
+        linkStrokeOpacity = 0.6, // link stroke opacity
+        linkStrokeWidth = 1.5, // given d in links, returns a stroke width in pixels
+        linkStrokeLinecap = "round", // link stroke linecap
+        linkStrength, colors = d3.schemeRdGy[6], // an array of color strings, for the node groups
+    } = {}) {
 
 
         const N = d3.map(nodes, nodeId).map(intern);
@@ -66,7 +65,7 @@ export function createMap(svgRef) {
         const color = nodeGroup == null ? null : d3.scaleOrdinal(nodeGroups, colors);
 
         //Construct the forces
-        const forceNode = d3.forceManyBody().strength(-50);
+        const forceNode = d3.forceManyBody().strength(-200);
 
 
         const forceLink = d3.forceLink(links)
@@ -80,9 +79,9 @@ export function createMap(svgRef) {
         const simulation = d3.forceSimulation(nodes)
             .force("link", forceLink)
             .force("charge", forceNode)
-            // .force("x", d3.forceX())
-            // .force("y", d3.forceY());
-            .force("center", d3.forceCenter(width / 2, height / 2));
+            .force("x", d3.forceX(width / 2))
+            .force("y", d3.forceY(height / 2));
+        // .force("center", d3.forceCenter(width / 2, height / 2));
 
 
         simulation.alphaDecay(0.01);
@@ -117,8 +116,8 @@ export function createMap(svgRef) {
             .call(drag(simulation)).on("click", click);
 
 
-        d3.selection.prototype.first = () => d3.selection(this[0][0])
-        d3.selection.prototype.last = () => d3.selection(this[0][this.size() - 1])
+        // d3.selection.prototype.first = () => d3.selection(this[0][0])
+        // d3.selection.prototype.last = () => d3.selection(this[0][this.size() - 1])
 
 
         const node = container.append("circle")
@@ -127,7 +126,6 @@ export function createMap(svgRef) {
             .attr("stroke-opacity", nodeStrokeOpacity)
             .attr("stroke-width", nodeStrokeWidth)
             .attr("r", nodeRadius);
-
 
 
         // eslint-disable-next-line no-unused-vars
@@ -166,19 +164,14 @@ export function createMap(svgRef) {
             node.attr("transform", (d) => {
                 return "translate(" + d.x + "," + d.y + ")";
             });
-
-
         }
 
 
         function drag(simulation) {
             function dragstarted(event) {
-                d3.select(this).classed("fixed", true)
-                    .selectChild("circle")
-                    .attr("fill", "red");
-                // if (!event.active) simulation.alphaTarget(0.3).restart();
-                // event.subject.fx = event.subject.x;
-                // event.subject.fy = event.subject.y;
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                event.subject.fx = event.subject.x;
+                event.subject.fy = event.subject.y;
             }
 
             function dragged(event) {
@@ -186,65 +179,69 @@ export function createMap(svgRef) {
                 event.subject.fy = event.y;
             }
 
-            // function dragended(event) {
-            //     // if (!event.active) simulation.alphaTarget(0);
-            //     event.subject.fx = null;
-            //     event.subject.fy = null;
-            //     simulation.alpha(1).restart();
-            // }
+            function dragended(event) {
+                if (!event.active) simulation.alphaTarget(0);
+                event.subject.fx = null;
+                event.subject.fy = null;
+                simulation.alpha(1).restart();
+            }
 
             return d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
+                .on("end", dragended)
         }
 
+
+        // dynamic update function
         function click(event, d) {
-            delete d.fx;
-            delete d.fy;
-            d3.select(this)
-                .classed("fixed", false)
-                .call(showRing, 25);
+            d3.select(this).classed("fixed", true)
+                .selectChild("circle")
+                .attr("fill", "red");
 
-            simulation.alpha(1).restart();
+            selectNode(d);
+            updateSelectedNode([1,2])
+
+            simulation.alpha(0.3).restart();
         }
 
-        function showRing(wrapper, innerRadius) {
-
-            // let circleSL = d3.select(wrapper);
-
-            function mouseIn(event) {
-
-                console.log(links)
-
-                const addingSymbol = d3.symbol(d3.symbolCross, 200)();
-                const removeSymbol = d3.symbol(d3.symbolCross, 200)();
-
-
-                // eslint-disable-next-line no-unused-vars
-                const addSymbol = wrapper.append("path")
-                    .attr("d", addingSymbol)
-                    .attr("transform", "translate(-30,-30)")
-                    .attr("fill", "black");
-
-                // eslint-disable-next-line no-unused-vars
-                const remoSymble = wrapper.append("path")
-                    .attr("d", removeSymbol)
-                    .attr("transform", "translate(30,30)rotate(45)")
-                    .attr("fill", "black");
-
-                /**
-                 * todo
-                 * 1. add and rm node logic parts
-                 */
 
 
 
-            }
 
-            return wrapper
-                .on("mouseenter", mouseIn);
-
-        }
+        // function showRing(wrapper, innerRadius) {
+        //
+        //     // let circleSL = d3.select(wrapper);
+        //
+        //     function mouseIn(event) {
+        //
+        //         console.log(links)
+        //
+        //         const addingSymbol = d3.symbol(d3.symbolCross, 200)();
+        //         const removeSymbol = d3.symbol(d3.symbolCross, 200)();
+        //
+        //
+        //         // eslint-disable-next-line no-unused-vars
+        //         const addSymbol = wrapper.append("path")
+        //             .attr("d", addingSymbol)
+        //             .attr("transform", "translate(-30,-30)")
+        //             .attr("fill", "black");
+        //
+        //         // eslint-disable-next-line no-unused-vars
+        //         const remoSymble = wrapper.append("path")
+        //             .attr("d", removeSymbol)
+        //             .attr("transform", "translate(30,30)rotate(45)")
+        //             .attr("fill", "black");
+        //
+        //         /**
+        //          * //todo
+        //          * 1. add and rm node logic parts
+        //          */
+        //     }
+        //
+        //     return wrapper
+        //         .on("mouseenter", mouseIn);
+        // }
 
 
     }
