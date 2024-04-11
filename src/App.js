@@ -19,7 +19,6 @@ export default function App() {
     // useEffect(() => {
     //     // 检查本地存储中是否有节点数据
     //     const  localData= localStorage.getItem('data');
-    //     console.log(localData)
     //     if (localData) {
     //         setData(JSON.parse(localData));
     //     }

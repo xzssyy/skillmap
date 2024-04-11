@@ -7,7 +7,7 @@ import Graph from "./Graph/graph";
 
 export default function MapCanvas(props){
 
-    console.log(props.data)
+
 
 
     const data = props.data;

@@ -26,7 +26,7 @@ export default function NodeCreator({selectedNode}) {
         <div style={wrapperStyles}>
             {inputTool1({})}
             {inputTool2({node1,node2})}
-            {inputTool3({node2})}
+            {inputTool3(node1)}
             {inputTool4({node1,node2})}
         </div>
     </div>;
@@ -46,9 +46,9 @@ function inputTool1({addNode}) {
         <div style={inputStyles}>
             <h3 style={{"margin": 0, "textAlign": "center"}}>创建节点</h3>
 
-            <input style={{"margin": 10}} prefix={"ds"}></input>
+            <input style={{"margin": 22}} prefix={"ds"}></input>
             <div>
-                <button style={{"margin": 10}}>创建</button>
+                <button style={{"margin": 4}}>创建</button>
             </div>
         </div>);
 }
@@ -79,14 +79,15 @@ function inputTool2({node1, node2}) {
         <div style={inputStyles}>
             <h3 style={{"margin": 0, "textAlign": "center"}}>创建连接</h3>
 
-            <div style={{"margin": 10}}>节点1：<p style={textStyle1}>{nodeL}    </p>节点2：<p style={textStyle2}>{nodeR}</p> </div>
+            <div style={{"margin": 5}}>节点1：<p style={textStyle1}>{nodeL}</p></div>
+            <div style={{"margin": 5}}>节点2：<p style={textStyle2}>{nodeR}</p> </div>
 
-            <button style={{"margin": 10}}>创建</button>
+            <button style={{"margin": 5}}>创建</button>
         </div>);
 }
 
 //删除节点
-function inputTool3({node2}) {
+function inputTool3(node2) {
 
 
     const node = node2 === null ?"未选中" : node2;
@@ -107,9 +108,9 @@ function inputTool3({node2}) {
         <div style={inputStyles}>
             <h3 style={{"margin": 0, "textAlign": "center"}}> 删除节点</h3>
 
-            <div style={{"margin": 10}}>节点：<p style={textStyle}> {node}</p></div>
+            <div style={{"margin": 20}}>节点：<p style={textStyle}> {node}</p></div>
 
-            <button style={{"margin": 10}}>删除</button>
+            <button style={{"margin": 3}}>删除</button>
         </div>);
 }
 
@@ -136,10 +137,10 @@ function inputTool4({node1, node2}) {
         <div style={inputStyles}>
             <h3 style={{"margin": 0, "textAlign": "center"}}> 删除连接</h3>
 
-            <div style={{"margin": 10}}>节点1：<p style={textStyle}>{nodeL}    </p>节点2：<p style={textStyle}>{nodeR}</p>
-            </div>
+            <div style={{"margin": 5}}>节点1：<p style={textStyle}>{nodeL}</p></div>
+            <div style={{"margin": 5}}>节点2：<p style={textStyle}>{nodeR}</p></div>
 
-            <button style={{"margin": 10}}>删除</button>
+            <button style={{"margin": 5}}>删除</button>
         </div>);
 }
 
