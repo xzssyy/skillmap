@@ -1,9 +1,14 @@
+import {useState} from "react";
 
 
 export default function NodeCreator({selectedNode}) {
+
+
+    const [inputText, setInputText] = useState("")
+
     const styles = {
-        height: 190,
-        width: 1200,
+        height: "auto",
+       Width: "100%",
         border: "solid",
     }
 
@@ -14,7 +19,7 @@ export default function NodeCreator({selectedNode}) {
         display: "grid",
         gridTemplateColumns: "1fr 1fr 1fr 1fr",
         gridGap: 20,
-        height: "60%",
+        height: "100%",
         width: "90%",
         padding: 10,
         paddingLeft: 55
@@ -35,6 +40,8 @@ export default function NodeCreator({selectedNode}) {
 
 // 创建schema节点
 function inputTool1({addNode}) {
+
+
 
     const inputStyles = {
         border: "solid",

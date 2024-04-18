@@ -26,17 +26,16 @@ export default function ToolMenu() {
     }
 
     const styles = {
-        flex: "1",
+        flex:1,
         marginLeft: 10,
-        height: 800,
         border: "solid"
     }
 
 
     const wrapperStyles = {
         position:"relative",
-        height: "80%",
-        width:"100%",
+        height: 400,
+        width:1000,
         padding:20
     }
 

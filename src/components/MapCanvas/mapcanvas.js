@@ -8,15 +8,20 @@ import Graph from "./Graph/graph";
 export default function MapCanvas(props){
 
 
-
+    // console.log(1);
 
     const data = props.data;
+    const isUpdate = props.isUpdate;
+
+    console.log(isUpdate)
     // data for control list
     const [selectedNodeList, setSelctedNodeList] = useState(["未选中","未选中"]);
 
 
     const styles= {
-        flex:"1"
+        flex:"1",
+        height:"auto",
+        maxWidth:"100%"
     }
 
     const updateSelectedNode = (nodeList)=>{
@@ -27,13 +32,10 @@ export default function MapCanvas(props){
 
     return (
         <div className={"svgBox"} style={styles}>
-            <Graph data={data} updateSelectedNode={updateSelectedNode}></Graph>
+            <Graph data={data} isUpdate= {isUpdate} updateSelectedNode={updateSelectedNode}></Graph>
             <NodeCreator selectedNode={selectedNodeList}></NodeCreator>
+            <p>{data.nodes[0].name}</p>
         </div>
     )
 }
 
-
-const controller = ()=>{
-
-}

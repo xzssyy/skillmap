@@ -54,7 +54,7 @@ export default function ResourceList({data, itemClick, selectedItem}) {
         position:"absolute",
         left:20,
         border:"solid",
-        height:"80%",
+        height:"100%",
         width:"25%",
         padding:20
     }

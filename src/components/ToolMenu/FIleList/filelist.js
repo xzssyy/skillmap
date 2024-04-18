@@ -25,7 +25,7 @@ export default function FileList({data}) {
         position: "absolute",
         right: 100,
         border: "solid",
-        height: "80%",
+        height: "100%",
         width: "40%",
         padding: 20
     }
