@@ -1,10 +1,18 @@
 import {useState} from "react";
 
 
-export default function NodeCreator({selectedNode}) {
+export default function NodeCreator(props) {
+
+    const selectedNode = props.selectedNode;
+
+    const addNode = props.addNode
 
 
-    const [inputText, setInputText] = useState("")
+    const [inputValue, setInputValue] = useState('')
+
+    const handleInputChange = (e)=>{
+        setInputValue(e.target.value);
+    }
 
     const styles = {
         height: "auto",
@@ -29,7 +37,7 @@ export default function NodeCreator({selectedNode}) {
     return <div style={styles}>
         <h2 style={{margin: "0", textAlign: "center"}}> 控件栏</h2>
         <div style={wrapperStyles}>
-            {inputTool1({})}
+            {inputTool1(addNode,inputValue,handleInputChange)}
             {inputTool2({node1,node2})}
             {inputTool3(node1)}
             {inputTool4({node1,node2})}
@@ -39,7 +47,7 @@ export default function NodeCreator({selectedNode}) {
 
 
 // 创建schema节点
-function inputTool1({addNode}) {
+function inputTool1(addNode,inputValue,handleInputChange) {
 
 
 
@@ -53,9 +61,15 @@ function inputTool1({addNode}) {
         <div style={inputStyles}>
             <h3 style={{"margin": 0, "textAlign": "center"}}>创建节点</h3>
 
-            <input style={{"margin": 22}} prefix={"ds"}></input>
+            <input style={{"margin": 22}} prefix={"ds"} onChange={handleInputChange}></input>
             <div>
-                <button style={{"margin": 4}}>创建</button>
+                <button style={{"margin": 4}}
+                 onClick={
+                    ()=>{
+                        addNode(inputValue, 7,2)
+                 }
+                }
+                >创建</button>
             </div>
         </div>);
 }

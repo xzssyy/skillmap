@@ -3,10 +3,9 @@ import ResourceList from "./ResourceList/resourcelist";
 import React, {useState} from "react";
 import FileList from "./FIleList/filelist";
 
-export default function ToolMenu() {
+export default function ToolMenu(props) {
 
     const [selectedItem, setSelectedItem] = useState(null);
-
 
 
     /* resource data
