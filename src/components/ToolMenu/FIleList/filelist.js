@@ -2,7 +2,7 @@ import {useState} from "react";
 import FileViewer from "./FileViewer/fileviewer";
 
 
-export default function FileList({data}) {
+export default function FileList({data,addNode}) {
 
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,7 +36,9 @@ export default function FileList({data}) {
             { data && data.map((item, index) => (
                 <li key={index}>
                     {item.filename}
-                <button style={{margin :10}} > 加入地图 </button>
+                <button style={{margin :10}} onClick={()=>{
+                    addNode(item.filename, 6, 3)
+                }}> 加入地图 </button>
                     <button onClick={()=>openModal(item)}> 查看内容</button>
                 </li>
             ))}

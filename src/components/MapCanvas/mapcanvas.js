@@ -11,10 +11,8 @@ export default function MapCanvas(props){
     // console.log(1);
 
     const data = props.data;
-
-    // data for control list
-    const [selectedNodeList, setSelctedNodeList] = useState(["未选中","未选中"]);
-
+    const updateSelectedNode = props.updateSelectedNode
+    const selectedNodeList = props.selectedNodeList
 
     const styles= {
         flex:"1",
@@ -22,9 +20,8 @@ export default function MapCanvas(props){
         maxWidth:"100%"
     }
 
-    const updateSelectedNode = (nodeList)=>{
-        setSelctedNodeList(nodeList)
-    }
+    // data for control list
+
 
 
 
