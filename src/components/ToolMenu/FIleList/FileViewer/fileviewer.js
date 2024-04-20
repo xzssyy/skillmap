@@ -58,9 +58,8 @@ function readVideo(filename) {
     const filepath = '/' + filename;
 
     return (
-        <video controls>
-            <source src={filepath} type="video/mp4"/>
-            Your browser does not support the video tag.
+        <video controls style={{width:"80%", height:"80%"}}>
+            <source src={filepath} type="video/mp4" ></source>
         </video>
     )
 }

@@ -88,12 +88,20 @@ export default function App() {
 
 
     }
-
+    const exportClick = ()=> {
+        navigator.clipboard.writeText(JSON.stringify(data))
+            .then(() => {
+                alert('数据已成功复制到剪贴板');
+            })
+            .catch(err => {
+                alert('无法复制数据到剪贴板: ', err);
+            });
+    }
 
     return (
         <>
             <h1 style={{"text-align": "center"}}>技能地图</h1>
-            <button onClick={handClick} >dsdsd</button>
+            <button onClick={exportClick} >导出数据</button>
             <div className="container" style={styles}>
                 <MapCanvas data={data} addNode={addNode} deleteNode={deleteNode} selectedNodeList={selectedNodeList} updateSelectedNode={updateSelectedNode}
                            addLine={addLine}
