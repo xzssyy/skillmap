@@ -3,10 +3,9 @@ import ResourceList from "./ResourceList/resourcelist";
 import React, {useState} from "react";
 import FileList from "./FIleList/filelist";
 
-export default function ToolMenu() {
+export default function ToolMenu(props) {
 
     const [selectedItem, setSelectedItem] = useState(null);
-
 
 
     /* resource data
@@ -50,7 +49,7 @@ export default function ToolMenu() {
             <h1 style={{"boder": "solid", "text-align": "center"}}>资源库</h1>
             <div style={wrapperStyles}>
                 <ResourceList data={treeData} itemClick={handleItemClick} selectedItem={selectedItem}></ResourceList>
-                <FileList data={resouceData}></FileList>
+                <FileList data={resouceData} {...props}></FileList>
             </div>
 
         </div>
