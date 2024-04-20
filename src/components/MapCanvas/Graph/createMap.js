@@ -21,18 +21,31 @@ var g = null;
 
 
 function updateClickColor(nodes) {
+
+    const updater = (idToUpdate, c,data)=>{
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].id === idToUpdate) {
+                // 更新属性
+                data[i].color = c === null ? color[data[i].group-1] :c;
+                break;
+            }
+        }
+
+        return data
+    }
+
     const colorUpdate = (idList, data) => {
         if (idList[0] !== null) {
             const r = idList[0].id;
-            data[r].color = 'red';
+            data = updater(r, "red", data);
         }
         if (idList[1] !== null) {
-            const g = idList[1].id;
-            data[g].color = 'green'
+            let g = idList[1].id;
+            data = updater(g, "green", data);
         }
         if (idList[2] !== null) {
-            const g = idList[2].id;
-            data[g].color = color[data[g].group - 1]
+            let b = idList[2].id;
+            data = updater(b, null, data);
         }
         return data;
     }
@@ -64,13 +77,14 @@ const enterFunc = (enter) => {
             .style("fill", "#000")
             .text((d) => d.name);
 
-    } else if (type == 3) {
+    } else if (type == 2) {
         g.append("rect").attr("fill", d => d.color)
             .attr("stroke", "black")
             .attr("stroke-opacity", nodeStrokeOpacity)
             .attr("stroke-width", nodeStrokeWidth)
             .attr("width", 60)
             .attr("height", 30)
+            .attr("transform","translate(-30,-15)")
             .attr("class", "nodes");
 
 
@@ -78,12 +92,11 @@ const enterFunc = (enter) => {
             .attr("font-size", 10)
             .attr("text-anchor", "middle")
             .attr("cursor", "default")
-            .attr("dx", 30)
-            .attr("dy", (d) => 15)
+            // .attr("dx", 30)
+            // .attr("dy", (d) => 15)
             .style("fill", "#000")
             .text((d) => d.name);
     } else {
-
         const symbolGenerator = d3.symbol()
             .type(d3.symbolTriangle)
             .size(1000);
@@ -138,16 +151,19 @@ function drag(simulation) {
 
 function click(event, d) {
     // force
-    // const updateForceSelected = (selectedNodes, d) => [d, selectedNodes[0], selectedNodes[1]];
-    // selectedNodes = updateForceSelected(selectedNodes, d)
-    //
-    // // react
-    // const updateList = selectedNodes.map((item) => item !== null ? item.name : item).slice(0, 2)
-    // updateSelectedNodeFunc(updateList)
-    //
-    //
-    //
-    // const newNodes = updateClickColor(nodes);
+
+
+    const updateForceSelected = (selectedNodes, d) => [d, selectedNodes[0], selectedNodes[1]];
+    selectedNodes = updateForceSelected(selectedNodes, d)
+
+    // react
+    const updateList = selectedNodes.slice(0, 2);
+    // console.log(updateList)
+    updateSelectedNodeFunc(updateList)
+
+
+
+    const newNodes = updateClickColor(nodes);
 
 
     // console.log(newNodes);

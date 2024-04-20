@@ -5,7 +5,13 @@ export default function NodeCreator(props) {
 
     const selectedNode = props.selectedNode;
 
-    const addNode = props.addNode
+    const addNode = props.addNode;
+
+    const deleteNode = props.deleteNode;
+
+    const addLine=props.addLine
+
+    const deleteLine = props.deleteLine
 
 
     const [inputValue, setInputValue] = useState('')
@@ -38,9 +44,9 @@ export default function NodeCreator(props) {
         <h2 style={{margin: "0", textAlign: "center"}}> 控件栏</h2>
         <div style={wrapperStyles}>
             {inputTool1(addNode,inputValue,handleInputChange)}
-            {inputTool2({node1,node2})}
-            {inputTool3(node1)}
-            {inputTool4({node1,node2})}
+            {inputTool2({node1,node2},addLine)}
+            {inputTool3(node1, deleteNode)}
+            {inputTool4({node1,node2},deleteLine)}
         </div>
     </div>;
 }
@@ -76,9 +82,11 @@ function inputTool1(addNode,inputValue,handleInputChange) {
 
 
 //创建连接
-function inputTool2({node1, node2}) {
-    const nodeL = node1 === null ?"未选中" : node1;
-    const nodeR = node2=== null ?"未选中" : node2;
+function inputTool2({node1, node2},addLine) {
+
+
+    const nodeL = node1 === null ?{name : "未选中"} : node1;
+    const nodeR = node2=== null ?{name : "未选中"} : node2;
     const inputStyles = {
         border: "solid",
         height: "100%",
@@ -100,18 +108,18 @@ function inputTool2({node1, node2}) {
         <div style={inputStyles}>
             <h3 style={{"margin": 0, "textAlign": "center"}}>创建连接</h3>
 
-            <div style={{"margin": 5}}>节点1：<p style={textStyle1}>{nodeL}</p></div>
-            <div style={{"margin": 5}}>节点2：<p style={textStyle2}>{nodeR}</p> </div>
+            <div style={{"margin": 5}}>节点1：<p style={textStyle1}>{nodeL.name}</p></div>
+            <div style={{"margin": 5}}>节点2：<p style={textStyle2}>{nodeR.name}</p> </div>
 
-            <button style={{"margin": 5}}>创建</button>
+            <button style={{"margin": 5}} onClick={()=>addLine(nodeL, nodeR)}>创建</button>
         </div>);
 }
 
 //删除节点
-function inputTool3(node2) {
+function inputTool3(node2, deleteNode) {
 
 
-    const node = node2 === null ?"未选中" : node2;
+    const node = node2 === null ?{name : "未选中"} : node2;
 
     const inputStyles = {
         border: "solid",
@@ -129,18 +137,18 @@ function inputTool3(node2) {
         <div style={inputStyles}>
             <h3 style={{"margin": 0, "textAlign": "center"}}> 删除节点</h3>
 
-            <div style={{"margin": 20}}>节点：<p style={textStyle}> {node}</p></div>
+            <div style={{"margin": 20}}>节点：<p style={textStyle}> {node.name}</p></div>
 
-            <button style={{"margin": 3}}>删除</button>
+            <button style={{"margin": 3}} onClick={()=>{deleteNode(node)}}>删除</button>
         </div>);
 }
 
 //删除连接
-function inputTool4({node1, node2}) {
+function inputTool4({node1, node2},deleteLine) {
 
 
-    const nodeL = node1 === null ?"未选中" : node1;
-    const nodeR = node2=== null ?"未选中" : node2;
+    const nodeL = node1 === null ?{name : "未选中"}: node1;
+    const nodeR = node2=== null ?{name : "未选中"} : node2;
 
     const inputStyles = {
         border: "solid",
@@ -158,10 +166,10 @@ function inputTool4({node1, node2}) {
         <div style={inputStyles}>
             <h3 style={{"margin": 0, "textAlign": "center"}}> 删除连接</h3>
 
-            <div style={{"margin": 5}}>节点1：<p style={textStyle}>{nodeL}</p></div>
-            <div style={{"margin": 5}}>节点2：<p style={textStyle}>{nodeR}</p></div>
+            <div style={{"margin": 5}}>节点1：<p style={textStyle}>{nodeL.name}</p></div>
+            <div style={{"margin": 5}}>节点2：<p style={textStyle}>{nodeR.name}</p></div>
 
-            <button style={{"margin": 5}}>删除</button>
+            <button style={{"margin": 5}} onClick={()=>deleteLine(nodeL, nodeR)}>删除</button>
         </div>);
 }
 
