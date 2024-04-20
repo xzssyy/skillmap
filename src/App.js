@@ -89,25 +89,36 @@ export default function App() {
 
     }
     const exportClick = ()=> {
-        navigator.clipboard.writeText(JSON.stringify(data))
-            .then(() => {
-                alert('数据已成功复制到剪贴板');
-            })
-            .catch(err => {
-                alert('无法复制数据到剪贴板: ', err);
-            });
+            var textBoxDiv = document.getElementById("editableTextBox");
+            textBoxDiv.style.display ="block";
+
+    }
+    function saveText() {
+        var textBox = document.getElementById("textBox");
+        var newText = textBox.value;
+        // 这里可以添加保存文本的逻辑，比如将 newText 发送到服务器或者本地存储
+        console.log("保存的文本内容:", newText);
+        // 保存后隐藏文本框
+        var textBoxDiv = document.getElementById("editableTextBox");
+        textBoxDiv.classList.add("hidden");
     }
 
     return (
         <>
             <h1 style={{"text-align": "center"}}>技能地图</h1>
-            <button onClick={exportClick} >导出数据</button>
+            <button onClick={exportClick}>导出数据</button>
             <div className="container" style={styles}>
-                <MapCanvas data={data} addNode={addNode} deleteNode={deleteNode} selectedNodeList={selectedNodeList} updateSelectedNode={updateSelectedNode}
+                <MapCanvas data={data} addNode={addNode} deleteNode={deleteNode} selectedNodeList={selectedNodeList}
+                           updateSelectedNode={updateSelectedNode}
                            addLine={addLine}
                            deleteLine={deleteLine}
                 ></MapCanvas>
                 <ToolMenu addNode={addNode}></ToolMenu>
+
+            </div>
+            <div id="editableTextBox" className="hidden" style={{display: "none"}}>
+                <input type="text" id="textBox" value={JSON.stringify(data)}/>
+                <button onClick={saveText}>请ctrl+A全选粘贴到问卷</button>
             </div>
         </>
     );
