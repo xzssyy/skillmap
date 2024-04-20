@@ -23,6 +23,7 @@ var g = null;
 function updateClickColor(nodes) {
     const colorUpdate = (idList, data) => {
         if (idList[0] !== null) {
+
             const r = idList[0].id;
             data[r].color = 'red';
         }
@@ -41,72 +42,21 @@ function updateClickColor(nodes) {
 }
 
 const enterFunc = (enter) => {
-
     const g = enter.append("g")
+    g.append("circle").attr("fill", d => d.color)
+        .attr("stroke", nodeStroke)
+        .attr("stroke-opacity", nodeStrokeOpacity)
+        .attr("stroke-width", nodeStrokeWidth)
+        .attr("r", nodeRadius);
 
-    if (enter.size() == 0) return
-    const type = g.datum().type;
-
-    if (type == 1) {
-        g.append("circle").attr("fill", d => d.color)
-            .attr("stroke", nodeStroke)
-            .attr("stroke-opacity", nodeStrokeOpacity)
-            .attr("stroke-width", nodeStrokeWidth)
-            .attr("r", nodeRadius)
-            .attr("class", "nodes");
-
-        g.append("text")
-            .attr("font-size", 10)
-            .attr("text-anchor", "middle")
-            .attr("cursor", "default")
-            .attr("dx", 0)
-            .attr("dy", (d) => nodeRadius / 2 - 5)
-            .style("fill", "#000")
-            .text((d) => d.name);
-
-    } else if (type == 3) {
-        g.append("rect").attr("fill", d => d.color)
-            .attr("stroke", "black")
-            .attr("stroke-opacity", nodeStrokeOpacity)
-            .attr("stroke-width", nodeStrokeWidth)
-            .attr("width", 60)
-            .attr("height", 30)
-            .attr("class", "nodes");
-
-
-        g.append("text")
-            .attr("font-size", 10)
-            .attr("text-anchor", "middle")
-            .attr("cursor", "default")
-            .attr("dx", 30)
-            .attr("dy", (d) => 15)
-            .style("fill", "#000")
-            .text((d) => d.name);
-    } else {
-
-        const symbolGenerator = d3.symbol()
-            .type(d3.symbolTriangle)
-            .size(1000);
-
-        g.append("path")
-            .attr("d", symbolGenerator)
-            .attr("fill", d => d.color)
-            .attr("stroke", nodeStroke)
-            .attr("stroke-opacity", nodeStrokeOpacity)
-            .attr("stroke-width", nodeStrokeWidth)
-            .attr("class", "nodes");
-
-        g.append("text")
-            .attr("font-size", 10)
-            .attr("text-anchor", "middle")
-            .attr("cursor", "default")
-            .attr("dx", 0)
-            .attr("dy", (d) => 0)
-            .style("fill", "#000")
-            .text((d) => d.name);
-
-    }
-
+    g.append("text")
+        .attr("font-size", 10)
+        .attr("text-anchor", "middle")
+        .attr("cursor", "default")
+        .attr("dx", 0)
+        .attr("dy", (d) => nodeRadius / 2 - 5)
+        .style("fill", "#000")
+        .text((d) => d.name);
 
     return g;
 }
@@ -138,21 +88,20 @@ function drag(simulation) {
 
 function click(event, d) {
     // force
-    // const updateForceSelected = (selectedNodes, d) => [d, selectedNodes[0], selectedNodes[1]];
-    // selectedNodes = updateForceSelected(selectedNodes, d)
-    //
-    // // react
-    // const updateList = selectedNodes.map((item) => item !== null ? item.name : item).slice(0, 2)
-    // updateSelectedNodeFunc(updateList)
-    //
-    //
-    //
-    // const newNodes = updateClickColor(nodes);
+    const updateForceSelected = (selectedNodes, d) => [d, selectedNodes[0], selectedNodes[1]];
+    selectedNodes = updateForceSelected(selectedNodes, d)
 
+    // react
+    const updateList = selectedNodes.map((item) => item !== null ? item.name : item).slice(0, 2)
+    updateSelectedNodeFunc(updateList)
+
+    console.log(nodes)
+
+    const newNodes = updateClickColor(nodes);
 
     // console.log(newNodes);
 
-    updateMap(nodes, links);
+    updateMap(newNodes, links);
 }
 
 export function initMap(svgRef, data, updateSelectedNode, isUpdate) {
@@ -160,6 +109,8 @@ export function initMap(svgRef, data, updateSelectedNode, isUpdate) {
     updateSelectedNodeFunc = updateSelectedNode;
     nodes = data.nodes;
     links = data.links;
+
+
 
 
     const svg = d3.select(svgRef)
@@ -203,30 +154,20 @@ export function updateMap(newNodes, newLinks) {
     //newNodes.push({"id": 15, "name": "ss", "group": 6, "type": 1})
     //links.push({ "source": 0, "target": 14, "value": 8 })
 
-
     // console.log(newNodes);
 
     nodes = newNodes;
     links = newLinks;
 
-
     var container = d3.select(".containers").selectAll(".con")
-        .data(nodes, d => d.id)
+        .data(nodes)
         .join(
             enter => {
-
-                return enterFunc(enter)
-
+                enterFunc(enter)
             },
-            update => {
-                // console.log(update)
-                return update.selectAll(".nodes")
-                    .attr("fill", d => d.color)
-            },
-            exit => {
-                // console.log(exit)
-                return exit.remove()
-            }
+            update => update.selectAll("circle")
+                .attr("fill", d => d.color),
+            exit => exit.remove()
         )
 
     container = d3.select(".containers").selectAll("g")
@@ -250,8 +191,8 @@ export function updateMap(newNodes, newLinks) {
         .attr("class", "line");
 
 
-    simulation.nodes(nodes);
-    simulation.force("link").links(links);
+    simulation.nodes(newNodes);
+    simulation.force("link").links(newLinks);
     simulation.on("tick", ticked);
     // console.log(1)
     simulation.alpha(1).restart();
