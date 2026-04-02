@@ -1,4 +1,4 @@
-# Skill Map: A Cchema Visualization Tool for Complex Learning
+# Skill Map: A Schema Visualization Tool for Complex Learning
 
 
 
